@@ -7,8 +7,9 @@ if(isset($_POST['search']))
 {
     $myCurl = new MyCurl();
     $url = $myCurl->processURL(path.$_POST['WhatFind']);
-    $html = str_get_html($url);
-  
+    echo $url;
+    //$html = str_get_html($url);
+
 }
 
 include ('template/inxdex.php');
