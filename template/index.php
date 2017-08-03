@@ -17,6 +17,7 @@
         <button type="submit"  name="search" class="btn btn-default">Search</button>
     </form>
     <?php
+        echo $normalQuery;
         echo $parceHtml;
     ?>
 

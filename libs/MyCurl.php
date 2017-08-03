@@ -8,25 +8,42 @@ class MyCurl
 
     public function processURL($url)
     {
-        $url = str_replace(' ', '+', $url);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->useragent);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $this->html = curl_exec($ch);
-        curl_close($ch);
-        return $this->html;
+        if(empty($url || !isset($url)))
+        {
+            return false;
+        }else
+        {
+            $url = str_replace(' ', '+', $url);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_USERAGENT, $this->useragent);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $this->html = curl_exec($ch);
+            curl_close($ch);
+            return $this->html;
+        }
+        return false;
+
+
     }
 
     public function getHtml($html)
     {
-        $document = phpQuery::newDocument($html);
-        $this->text = $document->find('.g');
-        foreach ( $this->text  as $el) {
-            $pq = pq($el);
-            $pq->find('table')->remove();
-            $pq->find('img')->remove();
+        if(empty($html || !isset($html)))
+        {
+            return false;
+
+        }else {
+            $document = phpQuery::newDocument($html);
+            $this->text = $document->find('.g');
+            foreach ($this->text as $el) {
+                $pq = pq($el);
+                $pq->find('table')->remove();
+                $pq->find('img')->remove();
+            }
+
+            return $this->text;
         }
-     return $this->text;
+        return false;
     }
 }
