@@ -9,7 +9,7 @@ if(isset($_POST['search']))
 {
    
     $doc = new DOMDocument();
-    $doc->loadHTMLFile('path.$_POST['WhatFind']');
+    $doc->loadHTMLFile("path.$_POST['WhatFind']");
     echo $doc->saveHTML();
 }
 include ('template/index.php');
