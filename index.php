@@ -14,9 +14,9 @@ if(isset($_POST['search']))
         $normalQuery = NORMAL_QUERY;
 
     }
-    file_put_contents('file', $url);
-    $html = file_get_html('file');
-    $parceHtml = $myCurl->getHtml($html);
+    $doc = new DOMDocument();
+    $doc->loadHTMLFile("$url");
+    echo $doc->saveHTML();
 }
 include ('template/index.php');
 ?>
