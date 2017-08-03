@@ -7,15 +7,9 @@ include 'config.php';
 
 if(isset($_POST['search']))
 {
-    $myCurl = new MyCurl();
-    $url = $myCurl->processURL(path.$_POST['WhatFind']);
-    if($url)
-    {
-        $normalQuery = NORMAL_QUERY;
-
-    }
+   
     $doc = new DOMDocument();
-    $doc->loadHTMLFile("$url");
+    $doc->loadHTMLFile('path.$_POST['WhatFind']');
     echo $doc->saveHTML();
 }
 include ('template/index.php');
