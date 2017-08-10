@@ -10,16 +10,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
 <body>
-    <form class="form-inline" method="post">
+    <form class="form-inline"  method="post">
         <div class="form-group">
             <input type="text"  class="form-control" name="WhatFind">
         </div>
         <button type="submit"  name="search" class="btn btn-default">Search</button>
     </form>
-    <?php
-        echo $normalQuery;
-        echo $parceHtml;
-    ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 

@@ -1,16 +1,14 @@
 <?php
+include ('libs/MyCurl.php');
+include ('config.php');
 include 'libs/simple_html_dom.php';
-include 'libs/MyCurl.php';
-include 'libs/phpQuery-onefile.php';
-include 'config.php';
 
-
-if(isset($_POST['search']))
+if (isset($_POST['search']))
 {
-   
-    $doc = new DOMDocument();
-    $doc->loadHTMLFile("path.$_POST['WhatFind']");
-    echo $doc->saveHTML();
+    $obj = new MyCurl();
+    $string =  str_replace(' ', '+', path.$_POST['WhatFind']);
+    echo $string;
+    $html = $obj->resultCurlData($string);
 }
-include ('template/index.php');
+include 'template/index.php';
 ?>

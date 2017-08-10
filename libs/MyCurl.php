@@ -1,49 +1,33 @@
 <?php
 class MyCurl
 {
+    protected $resultCurl;
     protected $html;
-    protected $text;
-    protected $div;
-    protected $useragent = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1';
-
-    public function processURL($url)
+    protected $headers;
+    protected $userAgent;
+    public function resultCurlData($path)
     {
-        if(empty($url || !isset($url)))
-        {
-            return false;
-        }else
-        {
-            $url = str_replace(' ', '+', $url);
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_USERAGENT, $this->useragent);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $this->html = curl_exec($ch);
-            curl_close($ch);
-            return $this->html;
-        }
-        return false;
+        $this->headers[] = 'authority:www.google.com.ua';
+        $this->headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg';
+        $this->headers[] = 'Connection: Keep-Alive';
+        $this->headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
+        $this->userAgent = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; Media Center PC 4.0)';
+        $ch = curl_init("$path");
+        curl_setopt($ch, CURLOPT_URL, $path);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, '');
+        curl_setopt($ch,CURLOPT_REFERER,$ch);
+        $this->html = curl_exec($ch);
+        var_dump($this->html);
+        curl_close($ch);
+        return $this->html;
 
 
     }
 
-    public function getHtml($html)
-    {
-        if(empty($html || !isset($html)))
-        {
-            return false;
-
-        }else {
-            $document = phpQuery::newDocument($html);
-            $this->text = $document->find('.g');
-            foreach ($this->text as $el) {
-                $pq = pq($el);
-                $pq->find('table')->remove();
-                $pq->find('img')->remove();
-            }
-
-            return $this->text;
-        }
-        return false;
-    }
 }
